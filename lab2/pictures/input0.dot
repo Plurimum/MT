@@ -1,0 +1,54 @@
+graph {
+S1[label="S"]
+S1 -- FOR2
+FOR2[label="for"]
+
+S1 -- OPEN_BRACKET3
+OPEN_BRACKET3[label="("]
+
+S1 -- I4
+I4[label="I"]
+I4 -- WORD5
+WORD5[label="int"]
+
+I4 -- WORD6
+WORD6[label="a"]
+
+I4 -- ASSIGN7
+ASSIGN7[label="="]
+
+I4 -- NUMBER8
+NUMBER8[label="228"]
+
+S1 -- SEMICOLON5
+SEMICOLON5[label=";"]
+
+S1 -- C6
+C6[label="C"]
+C6 -- WORD7
+WORD7[label="a"]
+
+C6 -- LESS8
+LESS8[label="<"]
+
+C6 -- NUMBER9
+NUMBER9[label="1509"]
+
+S1 -- SEMICOLON7
+SEMICOLON7[label=";"]
+
+S1 -- K8
+K8[label="K"]
+K8 -- WORD9
+WORD9[label="a"]
+
+K8 -- INCREMENT10
+INCREMENT10[label="++"]
+
+S1 -- CLOSE_BRACKET9
+CLOSE_BRACKET9[label=")"]
+
+S1 -- END10
+END10[label="$"]
+
+}
