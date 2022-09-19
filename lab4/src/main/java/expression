@@ -1,0 +1,45 @@
+grammar expression;
+
+expr() [int val] {
+    term() exprS(term0.val) < $val = exprS1.val; >
+}
+
+exprS(int acc) [int val] {
+    PLUS term() < $val = acc + term1.val; > exprS($val) < $val = exprS2.val; > |
+    MINUS term() < $val = acc - term1.val; > exprS($val) < $val = exprS2.val; > |
+    @eps < $val = acc; >
+}
+
+term() [int val] {
+    power() termS(power0.val) < $val = termS1.val; >
+}
+
+termS(int acc) [int val] {
+    MUL power() < $val = acc * power1.val; > termS($val) < $val = termS2.val; > |
+    DIV power() < $val = acc / power1.val; > termS($val) < $val = termS2.val; > |
+    @eps < $val = acc; >
+}
+
+power () [int val] {
+    leftE() powerS(leftE0.val) < $val = powerS1.val; >
+}
+
+powerS(int acc) [int val] {
+    POW  power() < $val = (int) Math.pow(acc, power1.val); > |
+    @eps < $val = acc; >
+}
+
+leftE() [int val] {
+    NUM < $val = Integer.parseInt(NUM0); > |
+    OPEN expr() CLOSE < $val = expr1.val; > |
+    MINUS leftE() < $val = (-1) * leftE1.val; >
+}
+
+POW { "\\*\\*" }
+PLUS { "\\+" }
+MINUS { "-" }
+MUL { "\\*" }
+DIV { "/" }
+NUM { "[0-9]+" }
+OPEN { "\\(" }
+CLOSE { "\\)" }

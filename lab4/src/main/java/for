@@ -1,0 +1,43 @@
+grammar for;
+
+s()[] {
+    FOR OB i() SEM c() SEM k() CB <>
+}
+
+i()[] {
+    WORD WORD ASSIGN NUM <>
+}
+
+c()[] {
+    WORD o() NUM <>
+}
+
+k()[] {
+    WORD d() <>
+}
+
+d()[] {
+    INC <> | DEC <>
+}
+
+o()[] {
+    EQ <> | GREQ <> | LEEQ <> | NEQ <> | GR <> | LE <>
+}
+
+WORD { "[a-zA-Z]+" }
+NUM { "[0-9]+" }
+
+FOR { "for" }
+OB { "\\(" }
+CB { "\\)" }
+SEM { ";" }
+ASSIGN { "=" }
+
+INC { "\\+\\+" }
+DEC { "--" }
+EQ { "==" }
+GREQ { ">=" }
+LEEQ { "<=" }
+NEQ { "!=" }
+GR { ">" }
+LE { "<" }

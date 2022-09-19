@@ -1,0 +1,52 @@
+grammar expression;
+
+s [StringBuilder output] {
+    assign(vars, output)
+}
+
+assign(Map <String, Integer> vars, StringBuilder output) {
+    var ASSIGN exp(vars) SEMICOLON @eps < $vars.put($var.text, $exp.val);
+        $output.append($var.text + " = " + $exp.val + ";\n"); >
+}
+
+exp (Map <String, Integer> vars) [int val] {
+    mulDiv(vars) addSub(vars, $mulDiv.val) < $val = $addSub.val; >
+}
+
+addSub (Map <String, Integer> vars, int acc) [int val] {
+    ADD mulDiv(vars) < $acc = $acc + $mulDiv.val; > addSub(vars, $acc) < $val = $addSub.val; > |
+    SUB mulDiv(vars) < $acc = $acc - $mulDiv.val; > addSub(vars, $acc) < $val = $addSub.val; > |
+    @eps < $val = $acc; >
+}
+
+mulDiv (Map <String, Integer> vars) [int val] {
+    single(vars) mulDivRight(vars, $single.val) < $val = $mulDivRight.val; >
+}
+
+mulDivRight (Map <String, Integer> vars, int acc) [int val] {
+    MUL single(vars) < $acc = $acc * $single.val; > mulDivRight(vars, $acc) < $val = $mulDivRight.val; > |
+    DIV single(vars) < $acc = $acc / $single.val; > mulDivRight(vars, $acc) < $val = $mulDivRight.val; > |
+    @eps < $val = $acc; >
+}
+
+single (Map <String, Integer> vars) [int val] {
+    OB exp(vars) CB @eps < $val = $exp.val; > |
+    num < $val = Integer.parseInt($num.text); > |
+    var < $val = $vars.get($var.text); >
+}
+
+num { NUM }
+var { VAR }
+
+VAR { "[a-z]+" }
+NUM { "[0-9]+" }
+
+OB { "(" }
+CB { ")" }
+ASSIGN { "=" }
+ADD { "+" }
+SUB { "-" }
+MUL { "*" }
+DIV { "/" }
+
+SEMICOLON { ";" }

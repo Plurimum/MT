@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+    id 'antlr'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    antlr 'org.antlr:antlr4:4.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+/*
+task runJar(type: JavaExec) {
+    classpath = files("C:/Javalib/antlr-4.9.3-complete.jar")
+    args("D:/ITMO/MT/lab3/src/main/java/Expression.g4", "-o", "D:/ITMO/MT/lab3/src/main/java")
+}
+
+generateGrammarSource {
+    copy {
+        from "${buildDir}/classes/java/main"
+        into "src/main/java"
+    }
+}*/
